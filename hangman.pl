@@ -16,7 +16,7 @@ my $the_word = $word_pool[rand scalar @word_pool];
 
 my $solved = 0;
 do {
-    compute_body($guesses);
+    compute_body();
     illustrate();
     get_new_letter();
 } until ($#wrong_guesses eq 5 or is_solved());
@@ -32,13 +32,13 @@ illustrate(); # one last time
 sub illustrate {
     say " _____";
     say " |    |";
-    say " |   ", sprintf(" %s", $body[0]);
-    say " |   ", sprintf("%s%s%s", $body[1], $body[3] || ' ', $body[2]);
-    say " |   ", sprintf("%s %s", $body[4], $body[5]);
+    say " |   ", sprintf(" %s", $body[0] || ' ');
+    say " |   ", sprintf("%s%s%s", $body[1] || ' ', $body[3] || ' ', $body[2] ||  ' ');
+    say " |   ", sprintf("%s %s", $body[4] || ' ', $body[5] || ' ');
     say " |";
 
     print "Letters available: ";
-    for my $l (a..z) {
+    for my $l ('a'..'z') {
         if (grep /$l/, @guesses) {
             print "_";
         }
